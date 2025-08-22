@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  api:
+    build: ./api                  # looks for Dockerfile inside ./api
+    container_name: api
+    restart: unless-stopped
+    ports:
+      - "4000:4000"               # maps localhost:4000 -> container:4000
+    volumes:
+      - ./api:/app                # mount code for live reload in dev
+      - /app/node_modules         # keep node_modules isolated in container
+    env_file:
+      - ./api/.env.example        # sample env vars
+    depends_on:
+      - mongo
+
+  web:
+    build: ./web
+    container_name: web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    env_file:
+      - ./web/.env.example
+    depends_on:
+      - api
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  mongo-express:
+    image: mongo-express:1.0.2
+    container_name: mongo-express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+
+volumes:
+  mongo_data:
