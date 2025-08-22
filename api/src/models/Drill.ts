@@ -1,19 +1,29 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
-const QuestionSchema = new Schema({
-  id: { type: String, required: true },
-  prompt: { type: String, required: true },
-  keywords: [{ type: String }]
-}, { _id: false });
+interface Question {
+  id: string;
+  prompt: string;
+  keywords: string[];
+}
 
-const DrillSchema = new Schema({
-  title: String,
-  difficulty: { type: String, enum: ['easy','medium','hard'], default: 'easy' },
-  tags: [String],
-  questions: [QuestionSchema]
+export interface DrillDoc extends Document {
+  title: string;
+  difficulty: string;
+  tags: string[];
+  questions: Question[];
+}
+
+const DrillSchema = new Schema<DrillDoc>({
+  title: { type: String, required: true },
+  difficulty: { type: String, required: true },
+  tags: [{ type: String }],
+  questions: [
+    {
+      id: { type: String, required: true },
+      prompt: { type: String, required: true },
+      keywords: [{ type: String, required: true }],
+    },
+  ],
 });
 
-DrillSchema.index({ tags: 1 });
-DrillSchema.index({ difficulty: 1 });
-
-export default model('Drill', DrillSchema);
+export const Drill = mongoose.model<DrillDoc>("Drill", DrillSchema);
