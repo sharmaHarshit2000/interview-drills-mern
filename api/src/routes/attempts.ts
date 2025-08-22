@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.js";
-import type { AuthRequest } from "../middleware/auth.js";
-import Attempt from "../models/Attempt.js";
-import { Drill } from "../models/Drill.js";
+import { requireAuth } from "../middleware/auth";
+import type { AuthRequest } from "../middleware/auth";
+import Attempt from "../models/Attempt";
+import { Drill } from "../models/Drill";
 import mongoose from "mongoose";
 
 const router = Router();

@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import User from "../models/User.js";
+import User from "../models/User";
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -31,9 +31,11 @@ export const requireAuth = async (
 
     req.user = user;
     next();
+    return;
   } catch (err) {
     res.status(401).json({
       error: { code: "unauthorized", message: "Invalid/expired session" },
     });
+    return;
   }
 };

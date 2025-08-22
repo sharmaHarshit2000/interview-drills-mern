@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Drill } from "../models/Drill.js";
+import { Drill } from "../models/Drill";
 import { z } from "zod";
 
 const router = Router();
@@ -9,7 +9,7 @@ let cache: { data: any; timestamp: number } | null = null;
 const CACHE_TTL = 60 * 1000; // 60s
 
 // GET /api/drills - list all drills (cached)
-router.get("/", async (req, res) => {
+router.get("/", async (_req, res) => {
   try {
     // if cache is fresh → return it
     if (cache && Date.now() - cache.timestamp < CACHE_TTL) {
@@ -19,10 +19,10 @@ router.get("/", async (req, res) => {
     const drills = await Drill.find().select("-__v");
     cache = { data: drills, timestamp: Date.now() };
 
-    res.json(drills);
+    return res.json(drills);
   } catch (err) {
     console.error("Error fetching drills:", err);
-    res
+    return res
       .status(500)
       .json({
         error: { code: "SERVER_ERROR", message: "Failed to fetch drills" },
@@ -52,10 +52,10 @@ router.get("/:id", async (req, res) => {
         .status(404)
         .json({ error: { code: "NOT_FOUND", message: "Drill not found" } });
     }
-    res.json(drill);
+    return res.json(drill);
   } catch (err) {
     console.error("Error fetching drill detail:", err);
-    res
+    return res
       .status(500)
       .json({
         error: { code: "SERVER_ERROR", message: "Failed to fetch drill" },

@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-import connectDB from "./config/db.js";
-import {Drill} from "./models/Drill.js";
+import connectDB from "./config/db";
+import {Drill} from "./models/Drill";
 
 dotenv.config();
 
