@@ -1,0 +1,135 @@
+{
+  "info": {
+    "name": "Interview Drills API",
+    "_postman_id": "68a8dc5089ff5dd7e7bce423",
+    "description": "Complete Postman collection with sensitive info removed",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:4000/api/health"
+      }
+    },
+    {
+      "name": "List Drills",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:4000/api/drills"
+      }
+    },
+    {
+      "name": "Get Drill Detail - JavaScript Basics",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:4000/api/drills/<DRILL_ID_PLACEHOLDER>"
+      }
+    },
+    {
+      "name": "Get Drill Detail - System Design Intro",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:4000/api/drills/<DRILL_ID_PLACEHOLDER>"
+      }
+    },
+    {
+      "name": "Auth - Current User (With JWT Cookie)",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:4000/api/me",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "<JWT_COOKIE_PLACEHOLDER>"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Submit Attempt",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Cookie",
+            "value": "<JWT_COOKIE_PLACEHOLDER>"
+          }
+        ],
+        "url": "http://localhost:4000/api/attempts",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"drillId\": \"<DRILL_ID_PLACEHOLDER>\",\n  \"answers\": [\n    { \"qid\": \"q1\", \"text\": \"<ANSWER_PLACEHOLDER>\" }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "List Last Attempts",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "<JWT_COOKIE_PLACEHOLDER>"
+          }
+        ],
+        "url": "http://localhost:4000/api/attempts?limit=5"
+      }
+    },
+    {
+      "name": "Test Rate Limiting",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:4000/api/health",
+        "description": "Run this multiple times to test rate limiting (100 req/5min)"
+      }
+    },
+    {
+      "name": "Test Input Validation - Missing drillId",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Cookie",
+            "value": "<JWT_COOKIE_PLACEHOLDER>"
+          }
+        ],
+        "url": "http://localhost:4000/api/attempts",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"answers\": []\n}"
+        }
+      }
+    },
+    {
+      "name": "Test Input Validation - Invalid drillId",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Cookie",
+            "value": "<JWT_COOKIE_PLACEHOLDER>"
+          }
+        ],
+        "url": "http://localhost:4000/api/attempts",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"drillId\": \"invalid\",\n  \"answers\": []\n}"
+        }
+      }
+    }
+  ]
+}
