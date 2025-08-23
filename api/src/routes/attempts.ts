@@ -7,7 +7,8 @@ import mongoose from "mongoose";
 
 const router = Router();
 
-// helper scoring function
+// Scoring function
+
 function scoreAnswers(
   drill: any,
   answers: { qid: string; text?: string }[]
@@ -18,9 +19,15 @@ function scoreAnswers(
   drill.questions.forEach((q: any) => {
     const ans = answers.find((a) => a.qid === q.id);
     totalKeywords += q.keywords.length;
+
     if (ans?.text) {
+      const answerText = ans.text.toLowerCase();
+
       q.keywords.forEach((kw: string) => {
-        if (ans.text && ans.text.toLowerCase().includes(kw.toLowerCase())) {
+        const keyword = kw.toLowerCase();
+        // Use word boundary regex for exact word matching
+        const regex = new RegExp(`\\b${keyword}\\b`, "i");
+        if (regex.test(answerText)) {
           matched++;
         }
       });
@@ -29,7 +36,6 @@ function scoreAnswers(
 
   return totalKeywords > 0 ? Math.round((matched / totalKeywords) * 100) : 0;
 }
-
 // POST /api/attempts
 router.post("/attempts", requireAuth, async (req: AuthRequest, res) => {
   try {
@@ -93,7 +99,7 @@ router.get("/attempts", requireAuth, async (req: AuthRequest, res) => {
     return res.json(
       attempts.map((a) => ({
         id: a._id,
-        drill: a.drillId, 
+        drill: a.drillId,
         score: a.score,
         createdAt: a.createdAt,
       }))
