@@ -1,0 +1,22 @@
+FROM node:20
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files first to leverage caching
+COPY package*.json tsconfig*.json ./
+
+# Install dependencies (including dev dependencies for build)
+RUN npm install
+
+# Copy source code
+COPY . .
+
+# Build the application (compiles TypeScript to JavaScript)
+RUN npm run build
+
+# Expose API port
+EXPOSE 4000
+
+# Default command - use the production start script
+CMD ["npm", "start"]
