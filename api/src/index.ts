@@ -21,11 +21,13 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
 
-// Allow web origin + credentials
+
+// In your main server file
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "http://localhost:5173"],
     credentials: true,
+    exposedHeaders: ["set-cookie"],
   })
 );
 
@@ -39,11 +41,13 @@ app.use(
   })
 );
 
+
 // routes
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/drills", drillsRouter);
 app.use("/api", meRoutes);
 app.use("/api", attemptRoutes);
 
-app.listen(4000, () => console.log("API running on 4000"));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`API running on ${PORT}`));

@@ -1,3 +1,4 @@
+# Use Node 20
 FROM node:20
 
 # Set working directory
@@ -12,6 +13,9 @@ RUN npm install
 # Copy source code
 COPY . .
 
+# REMOVE this line:
+# COPY ../.env ./
+
 # Build the application (compiles TypeScript to JavaScript)
 RUN npm run build
 
@@ -19,4 +23,4 @@ RUN npm run build
 EXPOSE 4000
 
 # Default command - use the production start script
-CMD ["npm", "start"]
+CMD ["npm", "start"]

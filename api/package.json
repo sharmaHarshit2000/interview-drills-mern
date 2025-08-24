@@ -10,6 +10,8 @@
     "seed": "ts-node src/seed.ts",
     "lint": "eslint ./src --ext .ts",
     "format": "prettier --write ./src",
+    "docker:build": "docker build -t upivot-api .",
+    "docker:up": "docker-compose up",
     "test": "echo \"(TODO) Add tests with Jest or Vitest\" && exit 0"
   },
   "keywords": [
