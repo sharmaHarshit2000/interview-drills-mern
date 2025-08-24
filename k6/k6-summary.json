@@ -1,0 +1,144 @@
+{
+    "metrics": {
+        "http_req_duration{expected_response:true}": {
+            "min": 1.546,
+            "med": 9.448,
+            "max": 42.827,
+            "p(90)": 24.6258,
+            "p(95)": 25.4729,
+            "avg": 11.859297752808994
+        },
+        "http_req_sending": {
+            "avg": 0.012160693481274331,
+            "min": 0.001,
+            "med": 0.008,
+            "max": 9.479,
+            "p(90)": 0.021,
+            "p(95)": 0.031
+        },
+        "http_req_failed": {
+            "passes": 35872,
+            "fails": 178,
+            "value": 0.9950624133148405
+        },
+        "data_received": {
+            "count": 40982366,
+            "rate": 339742.1940012072
+        },
+        "iteration_duration": {
+            "avg": 1006.1056820917562,
+            "min": 1000.616333,
+            "med": 1003.599459,
+            "max": 1125.110708,
+            "p(90)": 1011.9994919999999,
+            "p(95)": 1016.6005835999999
+        },
+        "http_req_receiving": {
+            "avg": 0.04294854368931895,
+            "min": 0.008,
+            "med": 0.034,
+            "max": 10.358,
+            "p(90)": 0.075,
+            "p(95)": 0.092
+        },
+        "vus_max": {
+            "value": 300,
+            "min": 300,
+            "max": 300
+        },
+        "http_req_waiting": {
+            "max": 102.378,
+            "p(90)": 5.6,
+            "p(95)": 8.23355,
+            "avg": 2.6770794452149747,
+            "min": 0.248,
+            "med": 1.3315000000000001
+        },
+        "http_req_blocked": {
+            "avg": 0.009699722607485934,
+            "min": 0,
+            "med": 0.003,
+            "max": 38.848,
+            "p(90)": 0.007,
+            "p(95)": 0.01
+        },
+        "checks": {
+            "passes": 18203,
+            "fails": 35872,
+            "value": 0.3366250577901063
+        },
+        "vus": {
+            "value": 6,
+            "min": 4,
+            "max": 299
+        },
+        "http_reqs": {
+            "count": 36050,
+            "rate": 298.85307485037634
+        },
+        "data_sent": {
+            "count": 3334625,
+            "rate": 27643.909423659814
+        },
+        "http_req_duration": {
+            "med": 1.385,
+            "max": 102.44,
+            "p(90)": 5.67,
+            "p(95)": 8.296,
+            "avg": 2.7321886823855768,
+            "min": 0.265,
+            "thresholds": {
+                "p(95)<150": false
+            }
+        },
+        "http_req_connecting": {
+            "avg": 0.003983966712898752,
+            "min": 0,
+            "med": 0,
+            "max": 20.805,
+            "p(90)": 0,
+            "p(95)": 0
+        },
+        "http_req_tls_handshaking": {
+            "med": 0,
+            "max": 0,
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0,
+            "min": 0
+        },
+        "iterations": {
+            "count": 18025,
+            "rate": 149.42653742518817
+        }
+    },
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {},
+        "checks": {
+                "drills response status is 200": {
+                    "path": "::drills response status is 200",
+                    "id": "29c6f061e577c3899b20e76dbc3cf1d7",
+                    "passes": 92,
+                    "fails": 17933,
+                    "name": "drills response status is 200"
+                },
+                "drills response time p95 < 150ms": {
+                    "name": "drills response time p95 < 150ms",
+                    "path": "::drills response time p95 < 150ms",
+                    "id": "d55b5c57c29e76cb4c5b3f191fa5b7da",
+                    "passes": 18025,
+                    "fails": 0
+                },
+                "drill detail status is 200": {
+                    "fails": 17939,
+                    "name": "drill detail status is 200",
+                    "path": "::drill detail status is 200",
+                    "id": "ee17463f4bd2effac9d85d1916a48aa7",
+                    "passes": 86
+                }
+            }
+    }
+}
