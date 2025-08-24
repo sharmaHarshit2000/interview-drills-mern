@@ -143,8 +143,7 @@ interview-drills-mern/
 - Deployment to cloud platform
 
 ## 💻 Demo & Repository
-- **Live Demo (Loom Video):** [Your Loom Link](https://www.loom.com/share/your-loom-video-link)
-- **GitHub Repository:** [https://github.com/sharmaHarshit2000/
+- **GitHub Repository:** [https://github.com/sharmaHarshit2000/interview-drills-mern](https://github.com/sharmaHarshit2000/interview-drills-mern)
 
 ## 📜 License
 MIT License - see LICENSE file for details
