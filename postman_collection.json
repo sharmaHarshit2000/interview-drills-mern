@@ -1,8 +1,7 @@
 {
   "info": {
     "name": "Interview Drills API",
-    "_postman_id": "68a8dc5089ff5dd7e7bce423",
-    "description": "Complete Postman collection with sensitive info removed",
+    "description": "Complete API collection for Interview Drills MERN app",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -10,45 +9,49 @@
       "name": "Health Check",
       "request": {
         "method": "GET",
+        "header": [],
         "url": "http://localhost:4000/api/health"
       }
     },
     {
-      "name": "List Drills",
+      "name": "List Drills (Cached)",
       "request": {
         "method": "GET",
+        "header": [],
         "url": "http://localhost:4000/api/drills"
       }
     },
     {
-      "name": "Get Drill Detail - JavaScript Basics",
+      "name": "Get Drill Detail",
       "request": {
         "method": "GET",
-        "url": "http://localhost:4000/api/drills/<DRILL_ID_PLACEHOLDER>"
+        "header": [],
+        "url": "http://localhost:4000/api/drills/{{drillId}}"
       }
     },
     {
-      "name": "Get Drill Detail - System Design Intro",
+      "name": "Google OAuth Login",
       "request": {
         "method": "GET",
-        "url": "http://localhost:4000/api/drills/<DRILL_ID_PLACEHOLDER>"
+        "header": [],
+        "url": "http://localhost:4000/api/auth/google"
       }
     },
     {
-      "name": "Auth - Current User (With JWT Cookie)",
+      "name": "Get Current User (Requires Auth)",
       "request": {
         "method": "GET",
-        "url": "http://localhost:4000/api/me",
         "header": [
           {
             "key": "Cookie",
-            "value": "<JWT_COOKIE_PLACEHOLDER>"
+            "value": "upivot_sid={{jwtToken}}"
           }
-        ]
+        ],
+        "url": "http://localhost:4000/api/me"
       }
     },
     {
-      "name": "Submit Attempt",
+      "name": "Submit Attempt - Perfect Score",
       "request": {
         "method": "POST",
         "header": [
@@ -58,77 +61,105 @@
           },
           {
             "key": "Cookie",
-            "value": "<JWT_COOKIE_PLACEHOLDER>"
+            "value": "upivot_sid={{jwtToken}}"
           }
         ],
-        "url": "http://localhost:4000/api/attempts",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"drillId\": \"<DRILL_ID_PLACEHOLDER>\",\n  \"answers\": [\n    { \"qid\": \"q1\", \"text\": \"<ANSWER_PLACEHOLDER>\" }\n  ]\n}"
-        }
+          "raw": "{\n  \"drillId\": \"{{drillId}}\",\n  \"answers\": [\n    { \"qid\": \"q1\", \"text\": \"A closure is a function that has access to variables from its outer function scope even after the outer function has returned.\" },\n    { \"qid\": \"q2\", \"text\": \"var is function-scoped and hoisted, while let is block-scoped and not hoisted in the same way. let also prevents redeclaration.\" }\n  ]\n}"
+        },
+        "url": "http://localhost:4000/api/attempts"
       }
     },
     {
-      "name": "List Last Attempts",
+      "name": "Submit Attempt - Load Balancing",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Cookie",
+            "value": "upivot_sid={{jwtToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"drillId\": \"{{systemDesignDrillId}}\",\n  \"answers\": [\n    { \"qid\": \"q1\", \"text\": \"A load balancer is a critical component in distributed systems that efficiently routes incoming network traffic across multiple backend servers to prevent any single server from becoming overloaded.\" }\n  ]\n}"
+        },
+        "url": "http://localhost:4000/api/attempts"
+      }
+    },
+    {
+      "name": "Get Attempt History",
       "request": {
         "method": "GET",
         "header": [
           {
             "key": "Cookie",
-            "value": "<JWT_COOKIE_PLACEHOLDER>"
+            "value": "upivot_sid={{jwtToken}}"
           }
         ],
         "url": "http://localhost:4000/api/attempts?limit=5"
       }
     },
     {
+      "name": "Logout",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "upivot_sid={{jwtToken}}"
+          }
+        ],
+        "url": "http://localhost:4000/api/auth/logout"
+      }
+    },
+    {
       "name": "Test Rate Limiting",
       "request": {
         "method": "GET",
-        "url": "http://localhost:4000/api/health",
-        "description": "Run this multiple times to test rate limiting (100 req/5min)"
+        "header": [],
+        "url": "http://localhost:4000/api/health"
       }
+    }
+  ],
+  "variable": [
+    {
+      "key": "jwtToken",
+      "value": "REPLACE_WITH_ACTUAL_JWT_TOKEN",
+      "description": "JWT token from successful Google login"
     },
     {
-      "name": "Test Input Validation - Missing drillId",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Cookie",
-            "value": "<JWT_COOKIE_PLACEHOLDER>"
-          }
-        ],
-        "url": "http://localhost:4000/api/attempts",
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"answers\": []\n}"
-        }
-      }
+      "key": "drillId",
+      "value": "REPLACE_WITH_JAVASCRIPT_DRILL_ID",
+      "description": "JavaScript Basics drill ID"
     },
     {
-      "name": "Test Input Validation - Invalid drillId",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Cookie",
-            "value": "<JWT_COOKIE_PLACEHOLDER>"
-          }
-        ],
-        "url": "http://localhost:4000/api/attempts",
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"drillId\": \"invalid\",\n  \"answers\": []\n}"
-        }
+      "key": "systemDesignDrillId",
+      "value": "REPLACE_WITH_SYSTEM_DESIGN_DRILL_ID",
+      "description": "System Design Intro drill ID"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "exec": [
+          "// Pre-request script to get actual IDs if needed",
+          "pm.sendRequest('http://localhost:4000/api/drills', function (err, response) {",
+          "  if (!err) {",
+          "    const drills = response.json();",
+          "    const jsDrill = drills.find(d => d.title === 'JavaScript Basics');",
+          "    const systemDrill = drills.find(d => d.title === 'System Design Intro');",
+          "    if (jsDrill) pm.collectionVariables.set('drillId', jsDrill._id);",
+          "    if (systemDrill) pm.collectionVariables.set('systemDesignDrillId', systemDrill._id);",
+          "  }",
+          "});"
+        ]
       }
     }
   ]
