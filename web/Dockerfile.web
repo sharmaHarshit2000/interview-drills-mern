@@ -2,16 +2,21 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-
 # Install dependencies
+COPY package*.json ./
 RUN npm install
 
 # Copy source code
 COPY . .
 
-# Expose port
+# Create a .env file for build time (if needed)
+# You can also pass build-time args if necessary
+# ARG VITE_API_URL
+# ARG VITE_GOOGLE_OAUTH_URL
+# ENV VITE_API_URL=$VITE_API_URL
+# ENV VITE_GOOGLE_OAUTH_URL=$VITE_GOOGLE_OAUTH_URL
+
+# Expose dev server port
 EXPOSE 3000
 
 # Start development server

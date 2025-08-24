@@ -2,28 +2,30 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+console.log("API URL:", API_URL); // Debug log
+
 export const api = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
+  withCredentials: true, // This is crucial for sending cookies
 });
 
 // Auth
-export const getCurrentUser = () => api.get("/api/me");
+export const getCurrentUser = () => api.get("/me"); // Remove /api prefix since baseURL already has it
 export const googleLogin = () =>
-  (window.location.href = `${API_URL}/auth/google`);
+  (window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`);
 
 // Drills
-export const getDrills = () => api.get("/api/drills");
-export const getDrillById = (id: string) => api.get(`/api/drills/${id}`);
+export const getDrills = () => api.get("/drills"); // Remove /api prefix
+export const getDrillById = (id: string) => api.get(`/drills/${id}`); // Remove /api prefix
 
 // Attempts
 export const submitAttempt = (data: {
   drillId: string;
   answers: Array<{ qid: string; text: string }>;
-}) => api.post("/api/attempts", data);
+}) => api.post("/attempts", data); // Remove /api prefix
 
 export const getAttempts = (limit: number = 5) =>
-  api.get(`/api/attempts?limit=${limit}`);
+  api.get(`/attempts?limit=${limit}`); // Remove /api prefix
 
 // Logout
-export const logoutUser = () => api.post("/auth/logout");
+export const logoutUser = () => api.post("/auth/logout"); // Remove /api prefix
